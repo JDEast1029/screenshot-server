@@ -7,26 +7,17 @@ let url = 'https://is-wap.wyawds.com/is/skin/report/pc-preview?merchant_id=172&s
 
 const IMAGE_HEIGHT = 3000; // 最大截图高度
 
-const showMem = () => {
-    const mem = process.memoryUsage();
-    const format = (bytes) => {
-        return (bytes/1024/1024).toFixed(2)+'MB';
-    };
-    console.log('Process1: heapTotal '+format(mem.heapTotal) + ' heapUsed ' + format(mem.heapUsed) + ' rss ' + format(mem.rss));
-};
-let timer = setInterval(() => {
-	showMem()
-}, 1000);
+process.on('SIGINT', process.exit);
 let screenShot = async () => {
 	const browser = await puppeteer.launch({
 		args: [
-			'–disable-gpu',  // GPU硬件加速
-			'–disable-dev-shm-usage', // 创建临时文件共享内存
-			'–disable-setuid-sandbox', // uid沙盒
-			'–no-first-run', // 没有设置首页。在启动的时候，就会打开一个空白页面。
-			'–no-sandbox', // 沙盒模式
-			'–no-zygote',
-			'–single-process', // 单进程运行
+			'--disable-gpu',  // GPU硬件加速
+			'--disable-dev-shm-usage', // 创建临时文件共享内存
+			'--disable-setuid-sandbox', // uid沙盒
+			'--no-first-run', // 没有设置首页。在启动的时候，就会打开一个空白页面。
+			'--no-sandbox', // 沙盒模式
+			'--no-zygote',
+			'--single-process', // 单进程运行
 		]
 	});
 	const page = await browser.newPage();
@@ -85,14 +76,14 @@ let screenShot = async () => {
 				path: 'example.png'
 			})
 		}
+		await browser.close();
 	}
-	await browser.close();
-	clearInterval(timer)
 };
 
 try {
 	screenShot();
 } catch(err) {
 	console.log(err);
+	process.exit();
 }
 
