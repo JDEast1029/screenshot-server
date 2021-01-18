@@ -5,10 +5,24 @@ const server = new ScreenShotServer();
 
 server.init();
 
-app.use( async ( ctx ) => {    //调用koa2的use方法来创建一个上下文  
-	let buffer = await server.screenshot(ctx.query)
-	ctx.body = buffer
-})
+app.use( async ( ctx, next ) => {    //调用koa2的use方法来创建一个上下文  
+	console.log(ctx.request.url);
+	if (ctx.request.path === '/') {
+		let buffer = await server.screenshot2Buffer(ctx.query);
+		ctx.body = buffer;
+	} else {
+		await next();
+	}
+});
+
+app.use(async (ctx, next) => {
+	if (ctx.request.path === '/get-img-url') {
+		let response = await server.screenshot2Url(ctx.query);
+		ctx.body = response;
+	} else {
+		await next();
+	}
+});
 
 app.listen(3000);
 
