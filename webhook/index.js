@@ -1,6 +1,6 @@
 const Koa = require('koa');
 const app = new Koa();
-const createHandler = require("github-webhook-handler");
+// const createHandler = require("github-webhook-handler");
 
 
 app.use(async (ctx, next) => {    //调用koa2的use方法来创建一个上下文  
