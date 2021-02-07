@@ -20,7 +20,7 @@ module.exports = {
 			max_restarts: 30,                         // 最大异常重启次数，即小于min_uptime运行时间重启次数；    
 			autorestart: true,                        // 默认为true, 发生异常的情况下自动重启    
 			cron_restart: "*/30 * * * *",             // crontab时间格式重启应用，目前只支持cluster模式;    
-			restart_delay: "60s",                     // 异常重启情况下，延时重启时间 
+			restart_delay: 60000,                     // 异常重启情况下，延时重启时间 单位ms
 			// cwd: "./",                                // 根目录    
 			// args: "",                                 // 传递给脚本的参数    
 			// interpreter: "",                          // 指定的脚本解释器   
