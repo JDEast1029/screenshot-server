@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start ecosystem.config.js",
-    "restart": "pm2 restart ecosystem.config.js",
-    "start-dev": "pm2 start ecosystem.config.js --env development",
-    "restart-dev": "pm2 restart ecosystem.config.js --env development",
-    "monit": "pm2 monit"
+    "start": "pm2 start ecosystem.config.js --only screenshot",
+    "restart": "pm2 restart ecosystem.config.js --only screenshot",
+    "start-dev": "pm2 start ecosystem.config.js --only screenshot --env development",
+    "restart-dev": "pm2 restart ecosystem.config.js --only screenshot --env development",
+    "hook": "pm2 start ecosystem.config.js --only webhook",
+    "plus": "pm2 plus"
   },
   "author": "",
   "license": "ISC",
