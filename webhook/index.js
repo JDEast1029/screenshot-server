@@ -11,12 +11,18 @@ app.use(async (ctx, next) => {    //调用koa2的use方法来创建一个上下�
 		// if (!ctx.request.header['x-hub-signature']) {
 		// 	console.log('错误：webhook secret在github未配置或者获取签名失败');
 		// }
-		console.log('hook....');
-		try {
-			child_process.execFile('./script.sh')
-		} catch (error) {
-			console.log('error', error);
-		}
+		ctx.response.status = 200;
+		child_process.exec('git pull', function (err,stdout, stderr){
+			if(err) {
+				ctx.response.status = 500;
+				console.log('Git pull error: ' + stderr);
+				ctx.response.body = 'Git pull error: ' + stderr;
+			} else {
+				// 这个stdout的内容就是shell结果
+				console.log('Git pull done. ' + stdout);
+				ctx.response.body = 'Git pull done. ' + stdout;
+			}
+		})
 	} else {
 		await next();
 	}
