@@ -12,6 +12,7 @@ app.use( async ( ctx, next ) => {    //调用koa2的use方法来创建一个上�
 		let buffer = await server.screenshot2Buffer(ctx.query);
 		ctx.body = buffer;
 	} else {
+		console.log('下一个接口');
 		await next();
 	}
 });
