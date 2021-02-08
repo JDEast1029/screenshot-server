@@ -8,11 +8,9 @@ server.init();
 app.use( async ( ctx, next ) => {    //调用koa2的use方法来创建一个上下文  
 	console.log(ctx.request.url);
 	if (ctx.request.path === '/') {
-		console.log('自动部署成功11');
 		let buffer = await server.screenshot2Buffer(ctx.query);
 		ctx.body = buffer;
 	} else {
-		console.log('下一个接口11');
 		await next();
 	}
 });

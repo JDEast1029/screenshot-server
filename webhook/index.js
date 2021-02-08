@@ -16,11 +16,11 @@ app.use(async (ctx, next) => {    //调用koa2的use方法来创建一个上下�
 			if(err) {
 				ctx.response.status = 500;
 				console.log('Git pull error: ' + stderr);
-				ctx.response.body = 'Git pull error: ' + stderr;
+				ctx.body = 'Git pull error: ' + stderr;
 			} else {
 				// 这个stdout的内容就是shell结果
 				console.log('Git pull done. ' + stdout);
-				ctx.response.body = 'Git pull done. ' + stdout;
+				ctx.body = 'Git pull done. ' + stdout;
 			}
 		})
 	} else {
