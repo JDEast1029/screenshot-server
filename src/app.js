@@ -11,6 +11,7 @@ server.init();
 
 app.use( async ( ctx, next ) => {    //调用koa2的use方法来创建一个上下文  
 	console.log(ctx.request.url);
+	console.log(ctx);
 	if (ctx.request.path === '/') {
 		let buffer = await server.screenshot2Buffer(ctx.query);
 		ctx.body = buffer;
@@ -31,11 +32,13 @@ app.use(async (ctx, next) => {
 app.listen(3000);
 
 
-// // 没有捕获到的Reject
-// process.on('unhandledRejection', (reason, promise) => {
-// 	process.exit();
-// });
-// process.on('uncaughtException', (err, origin) => {
-// 	process.exit();
-// });
-// process.on('SIGINT', process.exit);
+// 没有捕获到的Reject
+process.on('unhandledRejection', (reason, promise) => {
+	console.log('reason', reason);
+	process.exit();
+});
+process.on('uncaughtException', (err, origin) => {
+	console.log('err', err);
+	process.exit();
+});
+process.on('SIGINT', process.exit);
