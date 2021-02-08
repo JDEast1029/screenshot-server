@@ -1,8 +1,12 @@
+const EventEmitter = require('events');
 const Koa = require('koa');
-const app = new Koa();
 const ScreenShotServer = require('./screenshot-server');
-const server = new ScreenShotServer();
 
+const app = new Koa();
+const server = new ScreenShotServer();
+const emitter = new EventEmitter();
+
+// emitter.setMaxListeners(100);
 server.init();
 
 app.use( async ( ctx, next ) => {    //调用koa2的use方法来创建一个上下文  
@@ -27,11 +31,11 @@ app.use(async (ctx, next) => {
 app.listen(3000);
 
 
-// 没有捕获到的Reject
-process.on('unhandledRejection', (reason, promise) => {
-	process.exit();
-});
-process.on('uncaughtException', (err, origin) => {
-	process.exit();
-});
-process.on('SIGINT', process.exit);
+// // 没有捕获到的Reject
+// process.on('unhandledRejection', (reason, promise) => {
+// 	process.exit();
+// });
+// process.on('uncaughtException', (err, origin) => {
+// 	process.exit();
+// });
+// process.on('SIGINT', process.exit);
