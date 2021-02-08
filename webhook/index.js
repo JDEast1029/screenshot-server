@@ -32,10 +32,12 @@ app.listen(8081);
 
 
 // 没有捕获到的Reject
-// process.on('unhandledRejection', (reason, promise) => {
-// 	process.exit();
-// });
-// process.on('uncaughtException', (err, origin) => {
-// 	process.exit();
-// });
-// process.on('SIGINT', process.exit);
+process.on('unhandledRejection', (reason, promise) => {
+	console.log('reason-hook', reason);
+	process.exit();
+});
+process.on('uncaughtException', (err, origin) => {
+	console.log('err-hook', err);
+	process.exit();
+});
+process.on('SIGINT', process.exit);
