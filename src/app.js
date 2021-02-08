@@ -11,8 +11,9 @@ server.init();
 
 app.use( async ( ctx, next ) => {    //调用koa2的use方法来创建一个上下文  
 	console.log(ctx.request.url);
-	console.log(ctx);
+	// console.log(ctx);
 	if (ctx.request.path === '/') {
+		ctx.response.status = 200;
 		let buffer = await server.screenshot2Buffer(ctx.query);
 		ctx.body = buffer;
 	} else {
